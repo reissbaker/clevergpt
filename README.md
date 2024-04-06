@@ -18,8 +18,8 @@ idea that the model is just memorizing the output: if it's correctly solving a
 large percentage of the nets, it must have learned to generally apply an
 underlying pattern.
 
-We train on 250 randomly generated nets, and use a validation set also of 250.
-More samples would probably result in better performance, but 250 seems good
+We train on 200 randomly generated nets, and use a validation set also of 200.
+More samples would probably result in better performance, but 200 seems good
 enough in practice to solve fairly large interaction nets with a decent
 probability of success.
 
