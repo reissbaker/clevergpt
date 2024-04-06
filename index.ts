@@ -197,20 +197,18 @@ Fully compute it, step by step.
 `;
 
   let output: string[] = [];
+  let last = '';
   let curr: Program | null = program;
   for(const data of appData) {
     if(curr === null) throw `null program u fucked up`;
     const computation = computeTrainingStep(curr, data);
-    output = output.concat(computation.output);
+    last = last + (last === '' ? '' : ' ') + computation.output.join(' ');
     curr = computation.remaining;
-  }
-
-  if(curr !== null) {
-    output.push(progToString(curr));
+    output.push(last + (curr === null ? '' : ' ' + progToString(curr)));
   }
 
   return {
     prompt,
-    output: output.join(' '),
+    output: output.join('=\n'),
   };
 }
