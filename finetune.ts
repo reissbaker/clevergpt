@@ -9,7 +9,7 @@ tmp.setGracefulCleanup();
 
 export const openai = new OpenAI({});
 
-const SAMPLES = 200;
+const SAMPLES = 2000;
 
 async function createFinetune(
   filename: string,

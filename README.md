@@ -18,10 +18,13 @@ idea that the model is just memorizing the output: if it's correctly solving a
 large percentage of the nets, it must have learned to generally apply an
 underlying pattern.
 
-We train on 200 randomly generated nets, and use a validation set also of 200.
-More samples would probably result in better performance, but 200 seems good
-enough in practice to solve fairly large interaction nets with a decent
-probability of success.
+We train on 2000 randomly generated nets, and use a validation set also of 2000.
+2k samples appears to be good enough to get very close to perfect performance
+at any size in the training range; originally we trained on 200 samples, which
+provided near-perfect performance on <10 token nets but could sometimes
+struggle with ones approaching 21 tokens. 2000 samples is still far below the 5
+trillion valid 21-token inputs, so the model isn't memorizing the outputs, it's
+just getting better at applying the pattern it's learned.
 
 Rather than using the `#A A# #B B#` notation Taelin originally used, we just
 use `A B C D` as tokens, to avoid possible model tokenization issues.
