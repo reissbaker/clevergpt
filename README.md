@@ -24,7 +24,7 @@ enough in practice to solve fairly large interaction nets with a decent
 probability of success.
 
 Rather than using the `#A A# #B B#` notation Taelin originally used, we just
-use `A B C D` as tokens, to avoid possible tokenization issues.
+use `A B C D` as tokens, to avoid possible model tokenization issues.
 
 ## Running the code
 
@@ -35,7 +35,7 @@ npm install # install deps
 npx tsc # compile typescript
 ```
 
-Make sure to add a `.env` file with the following to env vars:
+Make sure to add a `.env` file with the following env vars:
 
 ```bash
 OPENAI_API_KEY="your-key-here"
