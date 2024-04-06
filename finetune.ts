@@ -9,6 +9,8 @@ tmp.setGracefulCleanup();
 
 export const openai = new OpenAI({});
 
+const SAMPLES = 200;
+
 async function createFinetune(
   filename: string,
   trainingData: string,
@@ -83,7 +85,7 @@ function prepareSample(sample: { prompt: string, output: string }): Message[] {
 
 const validation: Message[][] = [];
 const training: Message[][] = [];
-for(let i = 0; i < 500; i++) {
+for(let i = 0; i < SAMPLES; i++) {
   validation.push(prepareSample(trainingSample()));
   training.push(prepareSample(trainingSample()));
 }
