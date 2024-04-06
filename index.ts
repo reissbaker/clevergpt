@@ -29,13 +29,13 @@ function computeStep(program: string) {
 
 export function trainingSample() {
   const len = 1 + Math.floor(Math.random() * 20);
-  const tokens: Array<Token> = new Array(len);
+  const program: Array<Token> = new Array(len);
   for(let i = 0; i < len; i++) {
     const tokenIdx = Math.floor(Math.random() * tokens.length);
-    tokens[i] = tokens[tokenIdx];
+    program[i] = tokens[tokenIdx];
   }
 
-  let program: string | null = tokens.join(' ');
+  let programString: string | null = program.join(' ');
   const prompt = `ABCD is a system with 4 tokens: A, B, C, and D.
 
 An ABCD program is a sequence of tokens. Example:
@@ -64,20 +64,20 @@ The final result was just C.
 
 Now, consider the following program:
 
-${program}
+${programString}
 
 Fully compute it, step by step.`;
 
   const computation: string[] = [];
-  while(program !== null) {
-    computation.push(program);
-    let next = computeStep(program);
-    if(next === program) break;
-    program = next;
+  while(programString !== null) {
+    computation.push(programString);
+    let next = computeStep(programString);
+    if(next === programString) break;
+    programString = next;
   }
 
   return {
     prompt,
-    output: computation.join("=\n"),
+    output: computation.join(" =\n"),
   };
 }
