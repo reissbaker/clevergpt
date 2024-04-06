@@ -19,7 +19,7 @@ function computeValidationStep(program: string) {
   for(const rule of V_RULES) {
     if(program.match(rule)) {
       if(V_DEL.indexOf(rule) >= 0) {
-        return program.replace(rule, '');
+        return program.replace(rule + ' ', '');
       }
       return program.replace(rule, rule.split(' ').reverse().join(' '));
     }
