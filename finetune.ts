@@ -4,23 +4,10 @@ import path from "path";
 import fs from "fs/promises";
 import { createReadStream } from "fs";
 import OpenAI from "openai";
-import { validationSample, trainingSample } from ".";
+import { trainingSample } from ".";
 tmp.setGracefulCleanup();
 
 export const openai = new OpenAI({});
-
-async function waitForUpload(logType: string, id: string) {
-  console.log(`Checking if ${logType} data uploaded...`);
-  while(true) {
-    const retrieved = await openai.files.retrieve(id);
-    if(retrieved.status === 'processed') break;
-    console.log("Not yet processed...");
-    await new Promise<void>(resolve => {
-      setTimeout(resolve, 1000);
-    });
-  }
-  console.log(`Uploaded ${logType} data`);
-}
 
 async function createFinetune(
   filename: string,
@@ -69,6 +56,19 @@ async function createFinetune(
   console.log(`https://platform.openai.com/finetune/${job.id}?filter=all`);
 }
 
+async function waitForUpload(logType: string, id: string) {
+  console.log(`Checking if ${logType} data uploaded...`);
+  while(true) {
+    const retrieved = await openai.files.retrieve(id);
+    if(retrieved.status === 'processed') break;
+    console.log("Not yet processed...");
+    await new Promise<void>(resolve => {
+      setTimeout(resolve, 1000);
+    });
+  }
+  console.log(`Uploaded ${logType} data`);
+}
+
 type Message = {
   role: 'user' | 'assistant',
   content: string,
@@ -83,8 +83,8 @@ function prepareSample(sample: { prompt: string, output: string }): Message[] {
 
 const validation: Message[][] = [];
 const training: Message[][] = [];
-for(let i = 0; i < 3000; i++) {
-  validation.push(prepareSample(validationSample()));
+for(let i = 0; i < 500; i++) {
+  validation.push(prepareSample(trainingSample()));
   training.push(prepareSample(trainingSample()));
 }
 
