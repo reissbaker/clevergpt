@@ -28,7 +28,7 @@ function computeValidationStep(program: string) {
 }
 
 export function validationSample() {
-  const len = Math.floor(Math.random() * 10);
+  const len = 1 + Math.floor(Math.random() * 10);
   const tokens: Array<ValidationToken> = new Array(len);
   for(let i = 0; i < len; i++) {
     const tokenIdx = Math.floor(Math.random() * validationTokens.length);
