@@ -21,6 +21,10 @@ for(let i = 0; i < SAMPLES; i++) {
   training.push(prepareSample(trainingSample()));
 }
 
+// Teach it what to do with the degenerate case of single-token programs
+training.push(prepareSample(trainingSample(1)));
+validation.push(prepareSample(trainingSample(1)));
+
 async function write() {
   await fs.writeFile("data/training.jsonl", training.map(d => JSON.stringify(d)).join("\n"));
   await fs.writeFile("data/validation.jsonl", validation.map(d => JSON.stringify(d)).join("\n"));

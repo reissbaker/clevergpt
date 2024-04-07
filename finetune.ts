@@ -90,6 +90,10 @@ for(let i = 0; i < SAMPLES; i++) {
   training.push(prepareSample(trainingSample()));
 }
 
+// Teach it what to do with the degenerate case of single-token programs
+training.push(prepareSample(trainingSample(1)));
+validation.push(prepareSample(trainingSample(1)));
+
 createFinetune(
   "clevergpt",
   training.map(sample => JSON.stringify({ messages: sample })).join('\n'),
