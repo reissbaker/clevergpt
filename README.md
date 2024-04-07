@@ -35,7 +35,9 @@ since it's a much smaller model.
 Rather than using the `#A A# #B B#` notation Taelin originally used, we just
 use `A B C D` as tokens, to avoid possible model tokenization issues.
 
-## Running the code
+## Getting started
+
+### Getting started with OpenAI
 
 To get started:
 
@@ -44,9 +46,7 @@ npm install # install deps
 npx tsc # compile typescript
 ```
 
-### Getting started with OpenAI
-
-Make sure to add a `.env` file with the following env vars:
+Next, make sure to add a `.env` file with the following env vars:
 
 ```bash
 OPENAI_API_KEY="your-key-here"
@@ -56,6 +56,7 @@ MODEL_NAME="eventually once you have a trained model, put the model ID here"
 To train a model, run:
 
 ```bash
+# Make sure you've already run npm install and npx tsc as described above
 node build/finetune.js
 ```
 
@@ -66,9 +67,16 @@ you trained and run:
 node build/test.js
 ```
 
-### Getting started with Mistral
+### Getting started with Mistral 7B
 
-First, install [Ollama](https://ollama.com/), since we use that for
+First, run:
+
+```
+npm install # install deps
+npx tsc # compile typescript
+```
+
+Next install [Ollama](https://ollama.com/), since we use that for
 OpenAI-compatible inference. Then make sure to add a `.env` file in the root of
 this repo with the following env vars:
 
@@ -81,7 +89,6 @@ OPENAI_API_BASE="http://127.0.0.1:11434"
 Then generate some training data:
 
 ```
-npx tsc
 node build/generate-lora-data.js
 ```
 
