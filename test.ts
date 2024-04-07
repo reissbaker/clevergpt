@@ -25,8 +25,20 @@ async function run() {
     pieces.push(curr);
   }
 
-  console.log("\n\nVs real:", sample.output);
-  console.log("Match?", sample.output === pieces.join(''));
+  const lines = pieces.join('').split("\n").map(line => line.trim());
+  const computationLines = sample.output.split("\n");
+
+  console.log(`\n\nVs real:\n${sample.output}`);
+  console.log(
+    `\nExact computation match?
+(Note: this may not match even if the model is correct since rule application order is undefined.)
+${sample.output === lines.join("\n")}
+`,
+  );
+  console.log(
+    "Answer match?\n",
+    computationLines[computationLines.length - 1] === lines[lines.length - 1]
+  );
 }
 
 run();
