@@ -48,8 +48,8 @@ gradient_checkpointing: true
 
 sequence_len: 8192
 
-gpu_memory_limit: 20GiB
-micro_batch_size: 2
+gpu_memory_limit: 22GiB
+micro_batch_size: 1
 gradient_accumulation_steps: 4
 warmup_steps: 10
 logging_steps: 1
