@@ -38,6 +38,8 @@ npm install # install deps
 npx tsc # compile typescript
 ```
 
+### Getting started with OpenAI
+
 Make sure to add a `.env` file with the following env vars:
 
 ```bash
@@ -48,12 +50,69 @@ MODEL_NAME="eventually once you have a trained model, put the model ID here"
 To train a model, run:
 
 ```bash
-node build/index.js
+node build/finetune.js
 ```
 
 To try a random interaction net, update your `.env` file with the model ID that
 you trained and run:
 
 ```bash
+node build/test.js
+```
+
+### Getting started with Mistral
+
+Make sure to add a `.env` file with the following env vars:
+
+```bash
+OPENAI_API_KEY="ollama" # doesn't matter what this is, it just needs to exist
+MODEL_NAME="clevergpt-mistral"
+OPENAI_API_BASE="http://127.0.0.1:11434"
+```
+
+Then, finetune a Mistral LoRA:
+
+```bash
+./scripts/train-lora.sh
+```
+
+Next, clone and set up the llama.cpp repo:
+
+```bash
+git clone git@github.com:ggerganov/llama.cpp.git
+cd llama.cpp
+
+# Install Python deps
+python3 -m venv llamacpp
+source llamacpp/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+Now, while in the llama.cpp directory with your venv active, run:
+
+```bash
+python convert-lora-to-ggml ../path/to/clevergpt/lora-out
+```
+
+Make sure the path is to the `lora-out` directory in this repo, not just to the
+repo itself!
+
+Finally, create an ollama model from the Modelfile in this repo:
+
+```bash
+cd /path/to/clevergpt
+ollama create clevergpt-mistral ./Modelfile
+```
+
+If ollama isn't already running, run:
+
+```bash
+ollama serve
+```
+
+Finally:
+
+```bash
+npx tsc
 node build/test.js
 ```

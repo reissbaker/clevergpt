@@ -2,7 +2,9 @@ import "dotenv/config";
 import OpenAI from "openai";
 import { trainingSample } from ".";
 
-export const openai = new OpenAI({});
+const baseOverride = process.env["OPENAI_API_BASE"];
+const baseURL = baseOverride || null;
+export const openai = new OpenAI({ baseURL });
 
 const sample = trainingSample();
 

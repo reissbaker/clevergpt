@@ -1,0 +1,3 @@
+FROM mistral:v0.2
+PARAMETER temperature 0
+ADAPTER ./lora-out/ggml-adapter-model.bin
