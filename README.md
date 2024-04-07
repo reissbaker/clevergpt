@@ -28,9 +28,9 @@ memorizing the outputs, it's just getting better at applying the pattern it's
 learned.
 
 For Mistral, we do the same except on 3k samples each. Fewer might work too, it
-just takes an hour and a half on my 4090 to train the LoRA so I haven't tried
-other sample sizes, and I figured it might need a small boost compared to
-gpt-3.5-turbo since it's a much smaller model.
+just takes an hour on my 4090 to train the LoRA so I haven't tried other sample
+sizes, and I figured it might need a small boost compared to gpt-3.5-turbo
+since it's a much smaller model.
 
 Rather than using the `#A A# #B B#` notation Taelin originally used, we just
 use `A B C D` as tokens, to avoid possible model tokenization issues.
