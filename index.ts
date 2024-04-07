@@ -128,10 +128,12 @@ export function generate<T>(
   // Teach it what to do with the degenerate case of single-token programs
   data.push(prepareSample(trainingSample(1)));
 
-  // Give it a few super long context ones
-  data.push(prepareSample(trainingSample(100)));
-  data.push(prepareSample(trainingSample(75)));
-  data.push(prepareSample(trainingSample(50)));
+  // Give it a 30 super long context ones
+  for(let i = 9; i >= 0; i--) {
+    data.push(prepareSample(trainingSample(100 - i)));
+    data.push(prepareSample(trainingSample(75 - i)));
+    data.push(prepareSample(trainingSample(50 - i)));
+  }
 
   return data;
 }
