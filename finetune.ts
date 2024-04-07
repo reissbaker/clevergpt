@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import { createReadStream } from "fs";
 import OpenAI from "openai";
-import { trainingSample } from ".";
+import { generate } from ".";
 tmp.setGracefulCleanup();
 
 export const openai = new OpenAI({});
@@ -83,16 +83,8 @@ function prepareSample(sample: { prompt: string, output: string }): Message[] {
   ];
 }
 
-const validation: Message[][] = [];
-const training: Message[][] = [];
-for(let i = 0; i < SAMPLES; i++) {
-  validation.push(prepareSample(trainingSample()));
-  training.push(prepareSample(trainingSample()));
-}
-
-// Teach it what to do with the degenerate case of single-token programs
-training.push(prepareSample(trainingSample(1)));
-validation.push(prepareSample(trainingSample(1)));
+const validation = generate(SAMPLES, prepareSample);
+const training = generate(SAMPLES, prepareSample);
 
 createFinetune(
   "clevergpt",

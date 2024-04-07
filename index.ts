@@ -1,6 +1,10 @@
+const DEFAULT_MAX_LENGTH = 21;
+
+// Token types
 const tokens = [ 'A', 'B', 'C',  'D' ] as const;
 type Token = (typeof tokens)[number];
 
+// Operation types
 const DEL = [
   'A B',
   'C D',
@@ -15,6 +19,7 @@ const RULES = [
   ...SWAP,
 ];
 
+// Compute a step of the program evaluation
 function computeStep(program: string) {
   for(const rule of RULES) {
     if(program.match(rule)) {
@@ -57,8 +62,9 @@ function randomTokensUpTo(length: number) {
   return program;
 }
 
+// Generate a single training sample with a prompt and a correct expected output
 export function trainingSample(length?: number) {
-  const program = length ? randomTokensUpTo(length) : sampleSpace(21);
+  const program = length ? randomTokensUpTo(length) : sampleSpace(DEFAULT_MAX_LENGTH);
 
   let programString: string | null = program.join(' ');
   const prompt = `ABCD is a system with 4 tokens: A, B, C, and D.
@@ -105,4 +111,27 @@ Fully compute it, step by step.`;
     prompt,
     output: computation.join(" =\n"),
   };
+}
+
+// Generate a given number of fairly sampled program training data (+ a few extra of special
+// long-context ones), and convert them to a format given by the prepareSample callback
+export function generate<T>(
+  samples: number,
+  prepareSample: (sample: { prompt: string, output: string }) => T
+): T[] {
+  const data: T[] = [];
+
+  for(let i = 0; i < samples; i++) {
+    data.push(prepareSample(trainingSample()));
+  }
+
+  // Teach it what to do with the degenerate case of single-token programs
+  data.push(prepareSample(trainingSample(1)));
+
+  // Give it a few super long context ones
+  data.push(prepareSample(trainingSample(100)));
+  data.push(prepareSample(trainingSample(75)));
+  data.push(prepareSample(trainingSample(50)));
+
+  return data;
 }
