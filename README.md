@@ -62,12 +62,21 @@ node build/test.js
 
 ### Getting started with Mistral
 
-Make sure to add a `.env` file with the following env vars:
+First, install [Ollama](https://ollama.com/), since we use that for
+OpenAI-compatible inference. Then make sure to add a `.env` file in the root of
+this repo with the following env vars:
 
 ```bash
 OPENAI_API_KEY="ollama" # doesn't matter what this is, it just needs to exist
 MODEL_NAME="clevergpt-mistral"
 OPENAI_API_BASE="http://127.0.0.1:11434"
+```
+
+Then generate some training data:
+
+```
+npx tsc
+node build/generate-lora-data.js
 ```
 
 Then, finetune a Mistral LoRA:
@@ -113,6 +122,5 @@ ollama serve
 Finally:
 
 ```bash
-npx tsc
 node build/test.js
 ```
