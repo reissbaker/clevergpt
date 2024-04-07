@@ -124,7 +124,7 @@ Finally, create an ollama model from the Modelfile in this repo:
 
 ```bash
 cd /path/to/clevergpt
-ollama create clevergpt-mistral ./Modelfile
+ollama create clevergpt-mistral -f ./Modelfile
 ```
 
 If ollama isn't already running, run:
