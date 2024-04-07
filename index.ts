@@ -27,9 +27,15 @@ function computeStep(program: string) {
   return null;
 }
 
-// Fairly samples programs from the space of all possible programs *up to* a given length
-// i.e. if given maxLength of 21, it will generate programs of any token length up to 21
+// Fairly samples programs from the space of all possible programs *up to* a given length i.e. if
+// given maxLength of 21, it will generate programs of any token length up to and including 21. All
+// valid programs have an equal chance of being sampled
 function sampleSpace(maxLength: number) {
+  // Consider all possible programs up to maxLength: they're sequences of A, B, C, D tokens. If we
+  // treat A as 0, B as 1, etc, this is equivalent to base-4 numbers that are up to maxLength digits
+  // long. We can pick an arbitrary number between 0 and (4^maxLength) - 1, convert it to base 4,
+  // and use its digits as indices into the tokens array to fairly sample all valid programs that
+  // are up to maxLength tokens long.
   const max = Math.pow(4, maxLength) - 1;
   let num = Math.floor(Math.random() * max);
   const digits = num.toString(4);
@@ -40,8 +46,8 @@ function sampleSpace(maxLength: number) {
   return program;
 }
 
-// Fairly samples programs of a specific length
-// i.e. if given 21, it will generate programs of exactly 21 tokens
+// Fairly samples programs of a given length i.e. if given 21, it will generate programs of
+// exactly 21 tokens. All valid programs of exactly that size have an equal chance of being sampled
 function randomTokensUpTo(length: number) {
   const program: Array<Token> = new Array(length);
   for(let i = 0; i < length; i++) {
