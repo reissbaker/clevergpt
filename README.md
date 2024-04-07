@@ -1,7 +1,7 @@
 # CleverGPT
 
 Inspired by [Victor Taelin's
-tweet](https://twitter.com/i/bookmarks/all?post_id=1776096481704804789)
+tweet](https://twitter.com/VictorTaelin/status/1776096481704804789)
 about GPTs failing to be able to perform straightforward step-by-step
 reduction for [interaction
 nets](https://en.wikipedia.org/wiki/Interaction_nets), this repo finetunes
