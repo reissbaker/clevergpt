@@ -5,8 +5,8 @@ tweet](https://twitter.com/i/bookmarks/all?post_id=1776096481704804789)
 about GPTs failing to be able to perform straightforward step-by-step
 reduction for [interaction
 nets](https://en.wikipedia.org/wiki/Interaction_nets), this repo finetunes
-gpt-3.5-turbo with synthetic data to correctly perform step-by-step reduction
-for interaction nets.
+gpt-3.5-turbo or Mistral 7B with synthetic data to correctly perform
+step-by-step reduction for interaction nets.
 
 ## How it works
 
