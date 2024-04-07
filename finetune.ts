@@ -9,7 +9,8 @@ tmp.setGracefulCleanup();
 
 export const openai = new OpenAI({});
 
-const SAMPLES = 2000;
+const TRAINING_SAMPLES = 2000;
+const EVAL_SAMPLES = 400;
 
 async function createFinetune(
   filename: string,
@@ -83,8 +84,8 @@ function prepareSample(sample: { prompt: string, output: string }): Message[] {
   ];
 }
 
-const validation = generate(SAMPLES, prepareSample);
-const training = generate(SAMPLES, prepareSample);
+const validation = generate(EVAL_SAMPLES, prepareSample);
+const training = generate(TRAINING_SAMPLES, prepareSample);
 
 createFinetune(
   "clevergpt",
