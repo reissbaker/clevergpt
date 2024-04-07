@@ -18,19 +18,20 @@ idea that the model is just memorizing the output: if it's correctly solving a
 large percentage of the nets, it must have learned to generally apply an
 underlying pattern.
 
-For gpt-3.5-turbo, we train on 2000 randomly generated nets, and use a
-validation set also of 2000. 2k samples appears to be good enough to get very
-close to perfect performance at any size in the training range; originally we
-trained on 200 samples, which provided near-perfect performance on <10 token
-nets but could sometimes struggle with ones approaching 21 tokens. 2000 samples
-is still far below the 5 trillion valid 21-token inputs, so the model isn't
-memorizing the outputs, it's just getting better at applying the pattern it's
-learned.
+For gpt-3.5-turbo, we train on 2000 randomly generated nets of up to 21 tokens
+and 30 long-context nets (interaction nets with 40-100 tokens), and use a
+validation set of 300 randomly generated nets and once again 30 long-context
+ones. 2k random samples appears to be good enough to get very close to perfect
+performance at any size in the training range; originally we trained on 200
+samples, which provided near-perfect performance on <10 token nets but could
+sometimes struggle with ones approaching 21 tokens. 2000 samples is still far
+below the 5 trillion valid 21-token inputs, so the model isn't memorizing the
+outputs, it's just getting better at applying the pattern it's learned.
 
-For Mistral, we do the same except on 3k samples each. Fewer might work too, it
-just takes an hour on my 4090 to train the LoRA so I haven't tried other sample
-sizes, and I figured it might need a small boost compared to gpt-3.5-turbo
-since it's a much smaller model.
+For Mistral, we do the same except we train on 2.5k random samples instead of
+2k. Fewer might work too, it just takes an hour on my 4090 to train the LoRA so
+I haven't tried other sample sizes, and I figured it might need a small boost
+of extra data compared to gpt-3.5-turbo since it's a much smaller model.
 
 Rather than using the `#A A# #B B#` notation Taelin originally used, we just
 use `A B C D` as tokens, to avoid possible model tokenization issues.
