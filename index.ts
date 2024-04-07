@@ -27,13 +27,32 @@ function computeStep(program: string) {
   return null;
 }
 
-export function trainingSample(length?: number) {
-  const len = length || 1 + Math.floor(Math.random() * 20);
-  const program: Array<Token> = new Array(len);
-  for(let i = 0; i < len; i++) {
+// Fairly samples programs from the space of all possible programs *up to* a given length
+// i.e. if given maxLength of 21, it will generate programs of any token length up to 21
+function sampleSpace(maxLength: number) {
+  const max = Math.pow(4, maxLength) - 1;
+  let num = Math.floor(Math.random() * max);
+  const digits = num.toString(4);
+  const program: Array<Token> = [];
+  for(let i = 0; i < digits.length; i++) {
+    program.push(tokens[parseInt(digits[i], 10)]);
+  }
+  return program;
+}
+
+// Fairly samples programs of a specific length
+// i.e. if given 21, it will generate programs of exactly 21 tokens
+function randomTokensUpTo(length: number) {
+  const program: Array<Token> = new Array(length);
+  for(let i = 0; i < length; i++) {
     const tokenIdx = Math.floor(Math.random() * tokens.length);
     program[i] = tokens[tokenIdx];
   }
+  return program;
+}
+
+export function trainingSample(length?: number) {
+  const program = length ? randomTokensUpTo(length) : sampleSpace(21);
 
   let programString: string | null = program.join(' ');
   const prompt = `ABCD is a system with 4 tokens: A, B, C, and D.
