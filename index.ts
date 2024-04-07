@@ -27,8 +27,8 @@ function computeStep(program: string) {
   return null;
 }
 
-export function trainingSample() {
-  const len = 1 + Math.floor(Math.random() * 20);
+export function trainingSample(length?: number) {
+  const len = length || 1 + Math.floor(Math.random() * 20);
   const program: Array<Token> = new Array(len);
   for(let i = 0; i < len; i++) {
     const tokenIdx = Math.floor(Math.random() * tokens.length);
